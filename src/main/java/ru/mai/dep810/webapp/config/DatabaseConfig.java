@@ -19,6 +19,6 @@ public class DatabaseConfig {
 
     @Bean
     MongoOperations mongoOperations(MongoClient mongoClient) {
-        return new MongoTemplate(mongoClient, "stackoverflow");
+        return new MongoTemplate(mongoClient, "twitter");
     }
 }

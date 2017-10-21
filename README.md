@@ -1,28 +1,9 @@
-# README #
+# NoSQL Project "Twitter" #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Распределенное приложение на MongoDB, ElasticSearch и Hazelcast с использованием фреймворка Spring Boot.
 
-### What is this repository for? ###
+Предполагается реализовать прототип распределенной платформы для микроблога типа Twitter.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+В качестве основной базы данных используется MongoDB.
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-Никита и Ярослав
+Для отображения ленты и поиска сообщений предполагается использовать ElasticSearch.
