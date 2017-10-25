@@ -14,7 +14,7 @@ public class LocalCachedUserRepository {
     private Map<String, User> userCache = new ConcurrentHashMap<>(1000);
 
     public User getUserById(String userId) {
-        return userCache.computeIfAbsent(userId, id -> userRepository.getUserById(userId));
+        return userCache.computeIfAbsent(userId, id -> userRepository.getUserById(id));
     }
 
     public User saveUser(User user) {

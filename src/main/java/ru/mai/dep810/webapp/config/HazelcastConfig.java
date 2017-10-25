@@ -8,6 +8,7 @@ import com.hazelcast.core.HazelcastInstance;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.mai.dep810.webapp.cache.Caches;
 
 @Configuration
 public class HazelcastConfig {
@@ -28,10 +29,11 @@ public class HazelcastConfig {
         config.addQueueConfig(emailQueueConfig);
 
         // Users cache configuration
-        MapConfig userMapConfig = new MapConfig("users");
+        MapConfig userMapConfig = new MapConfig(Caches.USER.name());
 
         //Create a map store config for the users
-        //userMapConfig.setMapStoreConfig(usersMapStoreConfig);
+        
+//        userMapConfig.setMapStoreConfig(usersMapStoreConfig);
 
         //Add the customers map config to our storage node config
         config.addMapConfig(userMapConfig);
