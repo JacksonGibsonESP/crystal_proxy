@@ -35,21 +35,20 @@ public class HazelcastCachedUserRepository {
     public User saveUser(User user) {
         User savedUser = null;
         if (user.getId() == null) {
-            userRepository.saveUser(user);
-            usersMap.put(user.getId(), user);
+            savedUser = userRepository.saveUser(user);
+            usersMap.put(savedUser.getId(), user);
         } else {
             try {
                 boolean lockAquired = usersMap.tryLock(user.getId(), 1, TimeUnit.SECONDS);
                 if (lockAquired) {
                     try {
                         savedUser = userRepository.saveUser(user);
-                        Thread.sleep(5000);
                         usersMap.put(user.getId(), savedUser);
                     } finally {
                         usersMap.unlock(user.getId());
                     }
                 } else {
-                    throw new RuntimeException("Cannot aquire lock for " + user.getId());
+                    throw new RuntimeException("Cannot acquire lock for " + user.getId());
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -58,8 +57,12 @@ public class HazelcastCachedUserRepository {
         return savedUser;
     }
 
-    public List<User> findAllUsers() {
+    public List<User> findAllCachedUsers() {
         return new ArrayList<>(usersMap.values());
+    }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAllUsers();
     }
 
 }

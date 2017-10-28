@@ -24,16 +24,14 @@ public class HazelcastConfig {
         Config config = new Config();
 
         // Queue configuration
-        QueueConfig emailQueueConfig = new QueueConfig();
-        emailQueueConfig.setName("email-queue");
-        config.addQueueConfig(emailQueueConfig);
+        QueueConfig twitterQueueConfig = new QueueConfig();
+        twitterQueueConfig.setName("TwitterQueue");
+        config.addQueueConfig(twitterQueueConfig);
 
         // Users cache configuration
         MapConfig userMapConfig = new MapConfig(Caches.USER.name());
 
-        //Create a map store config for the users
-        
-//        userMapConfig.setMapStoreConfig(usersMapStoreConfig);
+        userMapConfig.setMaxIdleSeconds(10);
 
         //Add the customers map config to our storage node config
         config.addMapConfig(userMapConfig);
