@@ -11,7 +11,7 @@ public class Message {
     @Id
     private String id;
 
-    private String userLogin;
+    private String userId;
     private String message;
 
     public Message() {
@@ -19,7 +19,7 @@ public class Message {
 
     public Message(String id, String userId, String message) {
         this.id = id;
-        this.userLogin = userId;
+        this.userId = userId;
         this.message = message;
     }
 
@@ -31,12 +31,12 @@ public class Message {
         this.id = id;
     }
 
-    public String getUserLogin() {
-        return userLogin;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getMessage() {
