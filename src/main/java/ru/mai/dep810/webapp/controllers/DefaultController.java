@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by EUGENEL on 27.09.2017.
  */
 @Controller
-public class HelloWorldController {
+public class DefaultController {
 
     @RequestMapping("/")
     @ResponseBody
     String home() {
-        return "Hello World!";
+        return "Hello! It's Twitter!";
     }
 }
