@@ -3,11 +3,16 @@ package ru.mai.dep810.webapp.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Persistent;
 
+import java.io.Serializable;
+
 /**
  * Created by EUGENEL on 27.09.2017.
  */
 @Persistent
-public class User {
+public class User implements Serializable {
+
+    private static long serialVersionUID = 1L;
+
     @Id
     private String id;
 

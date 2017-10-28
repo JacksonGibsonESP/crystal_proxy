@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import ru.mai.dep810.webapp.cache.HazelcastCachedUserRepository;
 import ru.mai.dep810.webapp.model.User;
 import ru.mai.dep810.webapp.repository.MongoUserRepository;
 
@@ -18,7 +19,8 @@ import java.util.Collection;
 public class UserRestController {
 
     @Autowired
-    private MongoUserRepository userRepository;
+//    private MongoUserRepository userRepository;
+    private HazelcastCachedUserRepository userRepository;
 
     @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable("id") String userId) {
