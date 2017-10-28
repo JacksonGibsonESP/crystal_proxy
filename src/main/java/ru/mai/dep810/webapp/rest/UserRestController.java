@@ -1,14 +1,9 @@
 package ru.mai.dep810.webapp.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.mai.dep810.webapp.cache.HazelcastCachedUserRepository;
 import ru.mai.dep810.webapp.model.User;
-import ru.mai.dep810.webapp.repository.MongoUserRepository;
 
 import java.util.Collection;
 
@@ -19,7 +14,6 @@ import java.util.Collection;
 public class UserRestController {
 
     @Autowired
-//    private MongoUserRepository userRepository;
     private HazelcastCachedUserRepository userRepository;
 
     @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET)
@@ -32,6 +26,11 @@ public class UserRestController {
         return userRepository.findAllUsers();
     }
 
+    @RequestMapping(value = "/api/user/cached/", method = RequestMethod.GET)
+    public Collection<User> getCachedUsers() {
+        return userRepository.findAllCachedUsers();
+    }
+
     @RequestMapping(value = "/api/user/", method = RequestMethod.POST)
     public User createUser(@RequestBody User user) {
         return userRepository.saveUser(user);
@@ -42,4 +41,5 @@ public class UserRestController {
         user.setId(userId);
         return userRepository.saveUser(user);
     }
+
 }
