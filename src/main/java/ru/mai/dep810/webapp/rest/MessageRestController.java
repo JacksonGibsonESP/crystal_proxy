@@ -3,6 +3,7 @@ package ru.mai.dep810.webapp.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.mai.dep810.webapp.model.Message;
+import ru.mai.dep810.webapp.repository.ElasticRepository;
 import ru.mai.dep810.webapp.repository.MongoMessageRepository;
 
 import java.util.Collection;
@@ -14,6 +15,9 @@ import java.util.Collection;
 public class MessageRestController {
     @Autowired
     private MongoMessageRepository messageRepository;
+
+    @Autowired
+    private ElasticRepository elasticRepository;
 
     @RequestMapping(value = "/api/message/{id}", method = RequestMethod.GET)
     public Message getMessage(@PathVariable("id") String messageId) {
@@ -27,12 +31,17 @@ public class MessageRestController {
 
     @RequestMapping(value = "/api/message/", method = RequestMethod.POST)
     public Message createMessage(@RequestBody Message message) {
-        return messageRepository.saveMessage(message);
+        Message res = messageRepository.saveMessage(message);
+        elasticRepository.addMessage(message);
+        return res;
     }
 
     @RequestMapping(value = "/api/message/{id}", method = RequestMethod.PUT)
     public Message createMessage(@PathVariable("id") String messageId, @RequestBody Message message) {
         message.setId(messageId);
-        return messageRepository.saveMessage(message);
+        Message res = messageRepository.saveMessage(message);
+        elasticRepository.addMessage(message);
+        return res;
     }
+
 }

@@ -3,6 +3,8 @@ package ru.mai.dep810.webapp.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Persistent;
 
+import java.util.Date;
+
 /**
  * Created by JacksonGibsonESP on 21.10.2017.
  */
@@ -13,14 +15,16 @@ public class Message {
 
     private String userId;
     private String message;
+    private Date createDate;
 
     public Message() {
     }
 
-    public Message(String id, String userId, String message) {
+    public Message(String id, String userId, String message, Date createDate) {
         this.id = id;
         this.userId = userId;
         this.message = message;
+        this.createDate = createDate;
     }
 
     public String getId() {
@@ -45,6 +49,14 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
 }
