@@ -32,7 +32,7 @@ public class MessageRestController {
     @RequestMapping(value = "/api/message/", method = RequestMethod.POST)
     public Message createMessage(@RequestBody Message message) {
         Message res = messageRepository.saveMessage(message);
-        elasticRepository.addMessage(message);
+        elasticRepository.addMessage(res);
         return res;
     }
 
@@ -40,7 +40,7 @@ public class MessageRestController {
     public Message createMessage(@PathVariable("id") String messageId, @RequestBody Message message) {
         message.setId(messageId);
         Message res = messageRepository.saveMessage(message);
-        elasticRepository.addMessage(message);
+        elasticRepository.addMessage(res);
         return res;
     }
 
