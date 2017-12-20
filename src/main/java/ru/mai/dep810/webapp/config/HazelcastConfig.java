@@ -15,7 +15,7 @@ import ru.mai.dep810.webapp.cache.Caches;
 public class HazelcastConfig {
 
     @Value("${cacheMaxIdleSeconds}")
-    private final int cacheMaxIdleSeconds = 0;
+    private int cacheMaxIdleSeconds = 0;
 
     @Bean(destroyMethod = "shutdown")
     public HazelcastInstance createStorageNode(@Qualifier("StorageNodeConfig") Config config)
