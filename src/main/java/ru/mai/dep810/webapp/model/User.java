@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Persistent;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by EUGENEL on 27.09.2017.
@@ -17,18 +18,14 @@ public class User implements Serializable {
     private String id;
 
     private String login;
-    private String name;
-
-    private String email;
+    private Date createDate;
 
     public User() {
     }
     
-    public User(String id, String login, String name, String email) {
+    public User(String id, String login) {
         this.id = id;
         this.login = login;
-        this.name = name;
-        this.email = email;
     }
 
     public String getId() {
@@ -47,19 +44,11 @@ public class User implements Serializable {
         this.login = login;
     }
 
-    public String getName() {
-        return name;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }
