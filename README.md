@@ -1,9 +1,3 @@
-# NoSQL Project "Twitter" #
+# Proxy application between 810 department crystal web application and Elasticsearch #
 
-Распределенное приложение на MongoDB, ElasticSearch и Hazelcast с использованием фреймворка Spring Boot.
-
-Предполагается реализовать прототип распределенной платформы для микроблога типа Twitter.
-
-В качестве основной базы данных используется MongoDB.
-
-Для отображения ленты и поиска сообщений предполагается использовать ElasticSearch.
+Приложение прокси на Spring Boot. Проксирует REST запросы к Elasticsearch.

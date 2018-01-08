@@ -3,7 +3,6 @@ package ru.mai.dep810.webapp.config;
 import org.apache.log4j.Logger;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +43,7 @@ public class ElasticSearchConfig {
                 .toArray(TransportAddress[]::new);
     }
 
-    private InetSocketTransportAddress parseInetAddress(String address) {
+    private TransportAddress parseInetAddress(String address) {
         String[] hostAndPort = address.split(":");
         if (hostAndPort.length < 2 || hostAndPort.length > 2) {
             log.error("Invalid address: " + address + ". Expected 'hostname:port'");
@@ -54,7 +53,7 @@ public class ElasticSearchConfig {
             String host = hostAndPort[0].trim();
             Integer port = Integer.parseInt(hostAndPort[1].trim());
             log.info("Configuring elastic with node " + host +":" + port);
-            return new InetSocketTransportAddress(InetAddress.getByName(hostAndPort[0]), Integer.parseInt(hostAndPort[1]));
+            return new TransportAddress(InetAddress.getByName(hostAndPort[0]), Integer.parseInt(hostAndPort[1]));
         } catch (UnknownHostException e) {
             log.error(e.getMessage(), e);
             return null;

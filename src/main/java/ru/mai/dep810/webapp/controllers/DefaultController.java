@@ -13,6 +13,6 @@ public class DefaultController {
     @RequestMapping("/")
     @ResponseBody
     String home() {
-        return "Hello! It's Twitter!";
+        return "Hello! It's Crystal Proxy Application!";
     }
 }

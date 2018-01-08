@@ -7,18 +7,18 @@ import java.util.Collection;
  */
 public class SearchResult<T> {
     private Collection<T> rows;
-    private long totalRows;
+    private long totalHits;
 
-    public SearchResult(Collection<T> rows, long totalRows) {
+    public SearchResult(Collection<T> rows, long totalHits) {
         this.rows = rows;
-        this.totalRows = totalRows;
+        this.totalHits = totalHits;
     }
 
     public Collection<T> getRows() {
         return rows;
     }
 
-    public long getTotalRows() {
-        return totalRows;
+    public long getTotalHits() {
+        return totalHits;
     }
 }
