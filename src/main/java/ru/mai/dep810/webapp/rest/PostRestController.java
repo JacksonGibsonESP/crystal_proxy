@@ -1,10 +1,7 @@
 package ru.mai.dep810.webapp.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.mai.dep810.webapp.model.SearchResult;
 import ru.mai.dep810.webapp.repository.ElasticRepository;
 
@@ -18,6 +15,7 @@ public class PostRestController {
     @Autowired
     private ElasticRepository elasticRepository;
 
+    @CrossOrigin
     @RequestMapping(value = "/api/search", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public SearchResult<?> search(
             @RequestParam(value = "Query", required = false) String query,
@@ -32,6 +30,7 @@ public class PostRestController {
                 query, chemicalElement, chemicalFormula, crystalSystem, radiusType, spaceGroup, from, size);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/api/getContentById", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public Map<String, String> getContentById(@RequestParam(value = "Id") String id) {
         return elasticRepository.getContentById(id);
