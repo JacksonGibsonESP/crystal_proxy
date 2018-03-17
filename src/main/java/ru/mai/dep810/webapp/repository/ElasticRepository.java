@@ -126,7 +126,6 @@ public class ElasticRepository {
     public Map<String, String> getContentById(String id) {
         GetResponse response = client.prepareGet("crystal", "article", id)
                 .setFetchSource(new String[] {"attachment.content"}, new String[] {})
-                .setOperationThreaded(false)
                 .get();
         return (Map<String, String>) response.getSourceAsMap().get("attachment");
     }
@@ -134,7 +133,6 @@ public class ElasticRepository {
     public String getPathById(String id) {
         GetResponse response = client.prepareGet("crystal", "article", id)
                 .setFetchSource(new String[] {"path"}, new String[] {})
-                .setOperationThreaded(false)
                 .get();
         return (String) response.getSourceAsMap().get("path");
     }
