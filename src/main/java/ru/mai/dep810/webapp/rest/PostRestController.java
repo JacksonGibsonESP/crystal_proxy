@@ -2,10 +2,10 @@ package ru.mai.dep810.webapp.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.mai.dep810.webapp.model.ArticleContent;
+import ru.mai.dep810.webapp.model.RowItem;
 import ru.mai.dep810.webapp.model.SearchResult;
 import ru.mai.dep810.webapp.repository.ElasticRepository;
-
-import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -17,7 +17,7 @@ public class PostRestController {
 
     @CrossOrigin
     @RequestMapping(value = "/api/search", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public SearchResult<?> search(
+    public SearchResult<RowItem> search(
             @RequestParam(value = "Query", required = false) String query,
             @RequestParam(value = "ChemicalElement", required = false) String chemicalElement,
             @RequestParam(value = "ChemicalFormula", required = false) String chemicalFormula,
@@ -32,7 +32,7 @@ public class PostRestController {
 
     @CrossOrigin
     @RequestMapping(value = "/api/getContentById", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public Map<String, String> getContentById(@RequestParam(value = "Id") String id) {
+    public ArticleContent getContentById(@RequestParam(value = "Id") String id) {
         return elasticRepository.getContentById(id);
     }
 }
