@@ -27,10 +27,16 @@ import java.util.stream.Collectors;
 public class ElasticRepository {
 
     @Autowired
-    Client client;
+    private Client client;
 
     @Value("${elastic.index.name}")
-    String indexName;
+    private String indexName;
+
+    @Value("${elastic.highlights.amount}")
+    private Integer amount;
+
+    @Value("${elastic.highlights.length}")
+    private Integer length;
 
     public SearchResult<RowItem> search(
             String query,
@@ -66,6 +72,8 @@ public class ElasticRepository {
         highlightBuilder.preTags("<mark>");
         highlightBuilder.postTags("</mark>");
         highlightBuilder.field("attachment.content").highlighterType("plain");
+        highlightBuilder.fragmentSize(length);
+        highlightBuilder.numOfFragments(amount);
 
         ActionFuture<SearchResponse> execute = client.prepareSearch(indexName)
                 .setQuery(queryBuilder)
