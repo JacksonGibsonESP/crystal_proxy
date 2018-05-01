@@ -70,6 +70,8 @@ public class ElasticRepository {
 
         MultiMatchQueryBuilder multiMatchQueryBuilder = QueryBuilders.multiMatchQuery(queryStr, "attachment.content", "filename");
 
+        multiMatchQueryBuilder.analyzer("crystal");
+
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.preTags("<mark>");
         highlightBuilder.postTags("</mark>");
