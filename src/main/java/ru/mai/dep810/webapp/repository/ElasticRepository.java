@@ -6,7 +6,7 @@ import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.text.Text;
-import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
@@ -47,36 +47,39 @@ public class ElasticRepository {
             String spaceGroup,
             int from,
             int size) {
-        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        String queryStr = "";
 
         if (StringUtils.isNotBlank(query)) {
-            queryBuilder.must(QueryBuilders.queryStringQuery(query));
+            queryStr += query;
         }
         if (StringUtils.isNotBlank(chemicalElement)) {
-            queryBuilder.must(QueryBuilders.queryStringQuery(chemicalElement));
+            queryStr += " " + chemicalElement;
         }
         if (StringUtils.isNotBlank(chemicalFormula)) {
-            queryBuilder.must(QueryBuilders.queryStringQuery(chemicalFormula));
+            queryStr += " " + chemicalFormula;
         }
         if (StringUtils.isNotBlank(crystalSystem)) {
-            queryBuilder.must(QueryBuilders.queryStringQuery(crystalSystem));
+            queryStr += " " + crystalSystem;
         }
         if (StringUtils.isNotBlank(radiusType)) {
-            queryBuilder.must(QueryBuilders.queryStringQuery(radiusType));
+            queryStr += " " + radiusType;
         }
         if (StringUtils.isNotBlank(spaceGroup)) {
-            queryBuilder.must(QueryBuilders.queryStringQuery(spaceGroup));
+            queryStr += " " + spaceGroup;
         }
+
+        MultiMatchQueryBuilder multiMatchQueryBuilder = QueryBuilders.multiMatchQuery(queryStr, "attachment.content", "filename");
 
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.preTags("<mark>");
         highlightBuilder.postTags("</mark>");
         highlightBuilder.field("attachment.content").highlighterType("plain");
+        highlightBuilder.field("filename").highlighterType("plain");
         highlightBuilder.fragmentSize(length);
         highlightBuilder.numOfFragments(amount);
 
         ActionFuture<SearchResponse> execute = client.prepareSearch(indexName)
-                .setQuery(queryBuilder)
+                .setQuery(multiMatchQueryBuilder)
                 .setFetchSource(new String[] {
                         "_id",
                         "filename",
@@ -104,6 +107,10 @@ public class ElasticRepository {
                         if (!e.getHighlightFields().isEmpty()) {
                             rowItem.setHighlights(
                                     Arrays.stream(e.getHighlightFields().get("attachment.content").getFragments())
+                                            .map(Text::string).collect(Collectors.toList())
+                            );
+                            rowItem.setFilenameHighlights(
+                                    Arrays.stream(e.getHighlightFields().get("filename").getFragments())
                                             .map(Text::string).collect(Collectors.toList())
                             );
                         }

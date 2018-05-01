@@ -9,6 +9,7 @@ import java.util.List;
 public class RowItem {
     private String _id;
     private List<String> highlights = new ArrayList<>();
+    private List<String> filenameHighlights = new ArrayList<>();
     private String author;
     private String date;
     private String title;
@@ -28,6 +29,14 @@ public class RowItem {
 
     public void setHighlights(List<String> highlights) {
         this.highlights = highlights;
+    }
+
+    public List<String> getFilenameHighlights() {
+        return filenameHighlights;
+    }
+
+    public void setFilenameHighlights(List<String> filenameHighlights) {
+        this.filenameHighlights = filenameHighlights;
     }
 
     public String getAuthor() {
