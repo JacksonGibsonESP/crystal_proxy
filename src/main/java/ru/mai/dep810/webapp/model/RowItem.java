@@ -12,6 +12,7 @@ public class RowItem {
     private String author;
     private String date;
     private String title;
+    private String filename;
 
     public String get_id() {
         return _id;
@@ -51,5 +52,13 @@ public class RowItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }

@@ -79,6 +79,7 @@ public class ElasticRepository {
                 .setQuery(queryBuilder)
                 .setFetchSource(new String[] {
                         "_id",
+                        "filename",
                         "attachment.author",
                         "attachment.date",
                         "attachment.title"
@@ -99,6 +100,7 @@ public class ElasticRepository {
                     .map(e -> {
                         RowItem rowItem = new RowItem();
                         rowItem.set_id(e.getId());
+                        rowItem.setFilename((String)e.getSourceAsMap().get("filename"));
                         if (!e.getHighlightFields().isEmpty()) {
                             rowItem.setHighlights(
                                     Arrays.stream(e.getHighlightFields().get("attachment.content").getFragments())
