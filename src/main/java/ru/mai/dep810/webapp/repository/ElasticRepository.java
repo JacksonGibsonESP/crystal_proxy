@@ -7,7 +7,9 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.search.MatchQuery;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +73,8 @@ public class ElasticRepository {
         MultiMatchQueryBuilder multiMatchQueryBuilder = QueryBuilders.multiMatchQuery(queryStr, "attachment.content", "filename");
 
         multiMatchQueryBuilder.analyzer("crystal");
+        multiMatchQueryBuilder.zeroTermsQuery(MatchQuery.ZeroTermsQuery.ALL);
+        multiMatchQueryBuilder.operator(Operator.AND);
 
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.preTags("<mark>");
