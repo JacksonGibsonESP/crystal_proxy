@@ -107,14 +107,18 @@ public class ElasticRepository {
                         rowItem.set_id(e.getId());
                         rowItem.setFilename((String)e.getSourceAsMap().get("filename"));
                         if (!e.getHighlightFields().isEmpty()) {
-                            rowItem.setHighlights(
-                                    Arrays.stream(e.getHighlightFields().get("attachment.content").getFragments())
-                                            .map(Text::string).collect(Collectors.toList())
-                            );
-                            rowItem.setFilenameHighlights(
-                                    Arrays.stream(e.getHighlightFields().get("filename").getFragments())
-                                            .map(Text::string).collect(Collectors.toList())
-                            );
+                            if (e.getHighlightFields().get("attachment.content") != null) {
+                                rowItem.setHighlights(
+                                        Arrays.stream(e.getHighlightFields().get("attachment.content").getFragments())
+                                                .map(Text::string).collect(Collectors.toList())
+                                );
+                            }
+                            if (e.getHighlightFields().get("filename") != null) {
+                                rowItem.setFilenameHighlights(
+                                        Arrays.stream(e.getHighlightFields().get("filename").getFragments())
+                                                .map(Text::string).collect(Collectors.toList())
+                                );
+                            }
                         }
                         if (getAttachmentMember(e, "author") != null) {
                             rowItem.setAuthor((String) getAttachmentMember(e, "author"));
