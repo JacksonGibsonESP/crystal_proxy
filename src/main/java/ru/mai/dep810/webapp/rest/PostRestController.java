@@ -2,10 +2,9 @@ package ru.mai.dep810.webapp.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.mai.dep810.webapp.model.ArticleContent;
-import ru.mai.dep810.webapp.model.RowItem;
-import ru.mai.dep810.webapp.model.SearchResult;
+import ru.mai.dep810.webapp.model.*;
 import ru.mai.dep810.webapp.repository.ElasticRepository;
+import ru.mai.dep810.webapp.repository.JsonRepository;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -14,6 +13,9 @@ public class PostRestController {
 
     @Autowired
     private ElasticRepository elasticRepository;
+
+    @Autowired
+    private JsonRepository jsonRepository;
 
     @CrossOrigin
     @RequestMapping(value = "/api/search", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
@@ -34,5 +36,29 @@ public class PostRestController {
     @RequestMapping(value = "/api/getContentById", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public ArticleContent getContentById(@RequestParam(value = "Id") String id) {
         return elasticRepository.getContentById(id);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/getChemicalElements", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public ChemicalElements getChemicalElements() {
+        return jsonRepository.getChemicalElements();
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/getChemicalFormulas", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public ChemicalFormulas getChemicalFormulas() {
+        return jsonRepository.getChemicalFormulas();
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/getCrystalSystems", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public CrystalSystems getCrystalSystems() {
+        return jsonRepository.getCrystalSystems();
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/getRadiusTypes", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public RadiusTypes getRadiusTypes() {
+        return jsonRepository.getRadiusTypes();
     }
 }

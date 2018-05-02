@@ -20,10 +20,9 @@ public class ElasticSearchConfig {
     private static final Logger log = Logger.getLogger(ElasticSearchConfig.class);
 
     @Bean
-    Settings elasticSearchSettings(/*@Value("${elastic.cluster.name}") String clusterName*/) {
+    Settings elasticSearchSettings() {
         return Settings
                 .builder()
-//                .put("cluster.name", clusterName)
                 .build();
     }
 
